@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -125,7 +126,7 @@ public class HttpFileDownloadStage extends BaseStage {
 //            }
 
             File workDir = (this.workDir == null) ? null : new File(this.workDir);
-            File workFile = File.createTempFile("http-file-download","tmp", workDir);
+            File workFile = Files.createTempFile(workDir.toPath(), "http-file-download", "tmp").toFile();
             
             InputStream in = new BufferedInputStream(con.getInputStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(workFile, false));
